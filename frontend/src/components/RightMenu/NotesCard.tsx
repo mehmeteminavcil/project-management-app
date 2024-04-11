@@ -22,9 +22,9 @@ const NotesCard = () => {
         quae.
       </p>
       <div className="flex gap-2 my-2">
-        <Tag tag="Tech" color="" />
+        <Tag tag="Tech" color="green" />
         <Tag tag="Sport" color="yellow" />
-        <Tag tag="Ai" />
+        <Tag tag="Ai" color="blue" />
       </div>
     </div>
   );
