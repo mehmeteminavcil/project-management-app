@@ -1,4 +1,5 @@
 import FoldersSection from "../components/FoldersSection";
+import ProjectsSection from "../components/ProjectsSection";
 
 const Home = () => {
   return (
@@ -8,8 +9,7 @@ const Home = () => {
       </div>
       <div className="flex flex-col gap-10 p-5 overflow-y-auto">
         <FoldersSection />
-        <FoldersSection />
-        <FoldersSection />
+        <ProjectsSection />
       </div>
     </div>
   );

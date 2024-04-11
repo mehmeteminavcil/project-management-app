@@ -2,11 +2,13 @@ import {
   activity,
   analytics,
   calendar,
+  imgUrl,
   overview,
   project1,
   project2,
   project3,
   projects,
+  projectUrl,
 } from "../assets/index";
 
 export const sidebarNav = [
@@ -91,5 +93,92 @@ export const sidebarTasks = [
     count: 2,
     color: "#00b884",
     colorBg: "bg-lightGreen",
+  },
+];
+
+export const Projects = [
+  {
+    id: "1",
+    imgUrl: imgUrl,
+    projectImgUrl: projectUrl,
+    title: "Cloth",
+    description: "Small and Consices heading",
+    color: "#fd71af",
+    colorBg: "bg-lightPink",
+    tag: [
+      { id: "1", tag: "Ecommerce", color: "green" },
+      { id: "2", tag: "Ai", color: "pink" },
+      { id: "3", tag: "Sport", color: "purple" },
+    ],
+  },
+  {
+    id: "2",
+    imgUrl: imgUrl,
+    projectImgUrl: projectUrl,
+    title: "Cloth",
+    description: "Small and Consices heading",
+    color: "#fd71af",
+    colorBg: "bg-lightPink",
+    tag: [
+      { id: "1", tag: "Ecommerce", color: "green" },
+      { id: "2", tag: "Ai", color: "pink" },
+      { id: "3", tag: "Sport", color: "purple" },
+    ],
+  },
+  {
+    id: "3",
+    imgUrl: imgUrl,
+    projectImgUrl: projectUrl,
+    title: "Cloth",
+    description: "Small and Consices heading",
+    color: "#fd71af",
+    colorBg: "bg-lightPink",
+    tag: [
+      { id: "1", tag: "Ecommerce", color: "green" },
+      { id: "2", tag: "Ai", color: "pink" },
+      { id: "3", tag: "Sport", color: "purple" },
+    ],
+  },
+  {
+    id: "4",
+    imgUrl: imgUrl,
+    projectImgUrl: projectUrl,
+    title: "Cloth",
+    description: "Small and Consices heading",
+    color: "#fd71af",
+    colorBg: "bg-lightPink",
+    tag: [
+      { id: "1", tag: "Ecommerce", color: "green" },
+      { id: "2", tag: "Ai", color: "pink" },
+      { id: "3", tag: "Sport", color: "purple" },
+    ],
+  },
+  {
+    id: "5",
+    imgUrl: imgUrl,
+    projectImgUrl: projectUrl,
+    title: "Cloth",
+    description: "Small and Consices heading",
+    color: "#fd71af",
+    colorBg: "bg-lightPink",
+    tag: [
+      { id: "1", tag: "Ecommerce", color: "green" },
+      { id: "2", tag: "Ai", color: "pink" },
+      { id: "3", tag: "Sport", color: "purple" },
+    ],
+  },
+  {
+    id: "6",
+    imgUrl: imgUrl,
+    projectImgUrl: projectUrl,
+    title: "Cloth",
+    description: "Small and Consices heading",
+    color: "#fd71af",
+    colorBg: "bg-lightPink",
+    tag: [
+      { id: "1", tag: "Ecommerce", color: "green" },
+      { id: "2", tag: "Ai", color: "pink" },
+      { id: "3", tag: "Sport", color: "purple" },
+    ],
   },
 ];

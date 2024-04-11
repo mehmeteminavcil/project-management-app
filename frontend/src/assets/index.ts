@@ -7,6 +7,8 @@ import projects from "./icons/Projects.png";
 import project1 from "./project1.png";
 import project2 from "./project2.png";
 import project3 from "./project3.png";
+import projectUrl from "../assets/project2.png";
+import imgUrl from "../assets/cardbackground.png";
 
 export {
   overview,
@@ -17,4 +19,6 @@ export {
   project1,
   project2,
   project3,
+  projectUrl,
+  imgUrl,
 };
