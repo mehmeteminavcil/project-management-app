@@ -9,7 +9,7 @@ import { TaskList } from "./TaskList";
 import { ProjectsList } from "./ProjectList";
 
 const Sidebar = () => {
-  const [navOpen, setNavOpen] = useState(false);
+  const [navOpen, setNavOpen] = useState(true);
   const [activeNav, setActiveNav] = useState("Projects");
 
   return (

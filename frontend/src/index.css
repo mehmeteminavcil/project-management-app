@@ -6,8 +6,25 @@
 
 * {
   font-family: "Plus Jakarta Sans", sans-serif;
+  scroll-behavior: smooth;
 }
 
+*::-webkit-scrollbar {
+  background: transparent;
+  width: 2px;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply bg-violet/50 rounded-full;
+}
+
+.scrollbar-hidden::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.scrollbar-hidden:hover::-webkit-scrollbar-thumb {
+  @apply bg-green;
+}
 li {
   list-style: none;
 }

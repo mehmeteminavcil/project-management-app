@@ -22,6 +22,8 @@ export default {
       "gray-3": "#9896a3",
       "gray-4": "#c6c3cd",
       "gray-5": "#E6E4F0",
+      gray5: "#c8d2ff",
+      body: "#f9f8ff",
     },
     extend: {},
   },
