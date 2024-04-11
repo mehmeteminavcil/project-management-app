@@ -12,7 +12,7 @@ const NotesCard = () => {
         <Ellipsis color="gray" />
       </div>
       <h4 className="my-1 text-sm font-semibold text-gray-1">
-        ChatGPT Tricks for bussine marketing
+        ChatGPT Tricks for bussines marketing
       </h4>
       <p className="text-xs font-medium text-gray-2">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil a
