@@ -22,11 +22,14 @@ export default {
       "gray-3": "#9896a3",
       "gray-4": "#c6c3cd",
       "gray-5": "#E6E4F0",
-      gray5: "#c8d2ff",
       body: "#f9f8ff",
-      1: "#7b68ee",
     },
     extend: {},
   },
+  safelist: [
+    {
+      pattern: /(bg|text)-(pink|yellow|blue|purple|violet|green)/,
+    },
+  ],
   plugins: [],
 };
