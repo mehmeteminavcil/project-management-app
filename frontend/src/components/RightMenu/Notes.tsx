@@ -1,5 +1,4 @@
-import { CheckCheck, NotebookPen, Plus } from "lucide-react";
-import TodosCard from "./TodosCard";
+import { NotebookPen, Plus } from "lucide-react";
 import NotesCard from "./NotesCard";
 
 type NotesProps = {
