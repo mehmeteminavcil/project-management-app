@@ -1,12 +1,12 @@
 import { Check } from "lucide-react";
 import { useState } from "react";
-import { Tag } from "./Tags";
+import { Tag } from "../Tags";
 
 const TodosCard = () => {
   const [isChecked, setIsChecked] = useState(true);
 
   return (
-    <div className="border border-gray-5 rounded-[10px] min-h-[52px]  bg-[#f9f8ff] p-[10px]">
+    <div className="border border-gray-5 rounded-[10px]   bg-[#f9f8ff] p-[10px]">
       <div className="flex items-center gap-2">
         <div className="relative flex items-center justify-center ">
           <input
@@ -36,13 +36,11 @@ const TodosCard = () => {
               isChecked && "text-purple line-through "
             }`}
           >
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam
-            libero culpa provident debitis quas repudiandae quibusdam nam
-            possimus, nisi ex? Lorem ipsum dolor, sit amet consectetur
-            adipisicing elit. Incidunt sssssssssssssssssssssssssssss
+            Lorem ipsum dolor sit,amet.
           </p>
         </div>
       </div>
+
       <div className="mt-[10px] flex justify-between items-center gap-4">
         <div className="flex gap-1 overflow-x-hidden">
           <Tag tag="Donations" color="green" />
