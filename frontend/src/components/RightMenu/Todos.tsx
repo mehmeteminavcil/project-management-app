@@ -7,7 +7,7 @@ type TodosProps = {
 const Todos = ({ className }: TodosProps) => {
   return (
     <div className={`${className}  `}>
-      <div className="flex items-center justify-between pt-6 pb-1 pl-4 pr-6 border-b border-gray-5">
+      <div className="relative flex items-center justify-between pt-6 pb-1 pl-4 pr-6 border-b border-gray-5">
         <div className="flex gap-1 ">
           <CheckCheck size={22} stroke="#56555c" />
           <h3 className="font-medium text-gray-1">Todos</h3>

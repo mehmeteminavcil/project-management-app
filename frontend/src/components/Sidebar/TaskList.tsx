@@ -4,7 +4,6 @@ type TaskListProps = {
   id?: string | undefined;
   title: string;
   color?: string;
-  colorBg?: string;
   count: number;
   navOpen: boolean;
 };
@@ -12,16 +11,15 @@ export const TaskList = ({
   id,
   title,
   color,
-  colorBg,
   count,
   navOpen,
 }: TaskListProps) => {
   return (
     <li id={id} className="flex items-center cursor-pointer">
       <div
-        className={`w-[22px] h-[24px] ${colorBg} rounded-md flex items-center justify-center`}
+        className={`w-[22px] h-[24px] bg-${color}/15 rounded-md flex items-center justify-center`}
       >
-        <AlignLeft color={color} width={18} />
+        <AlignLeft className={`text-${color}`} width={18} />
       </div>
       {navOpen && (
         <>

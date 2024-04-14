@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   CalendarDays,
   Component,
@@ -20,13 +21,14 @@ const SidebarNavLinks = ({
   navOpen,
 }: NavLinksProps) => {
   return (
-    <li
+    <Link
+      to={`/${name}`}
       className={`h-[50px] flex px-3 gap-2  rounded-[10px] cursor-pointer transition-all items-center ${
         isActive ? "bg-violet" : " hover:bg-violet/10"
       }`}
       onClick={handleClick}
     >
-      <a href="#" className="flex items-center font-medium">
+      <span className="flex items-center font-medium">
         {name === "Overview" && (
           <Component color={`${isActive ? "white" : "#9896a3"}`} />
         )}
@@ -41,8 +43,8 @@ const SidebarNavLinks = ({
         )}
         {name === "Projects" && (
           <Folders color={`${isActive ? "white" : "#9896a3"}`} />
-        )}{" "}
-      </a>
+        )}
+      </span>
 
       {navOpen && (
         <span
@@ -51,7 +53,7 @@ const SidebarNavLinks = ({
           {name}
         </span>
       )}
-    </li>
+    </Link>
   );
 };
 

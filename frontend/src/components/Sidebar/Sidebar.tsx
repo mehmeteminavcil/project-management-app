@@ -2,19 +2,31 @@ import { useState } from "react";
 import logo from "../../assets/logo.png";
 import user from "../../assets/user.png";
 
-import { sidebarNav, sidebarProjects, sidebarTasks } from "../../constants";
-import SidebarNavLinks from "./SidebarNavLinks";
-import { Plus, Settings } from "lucide-react";
+import { sidebarProjects, sidebarTasks } from "../../constants";
+
+import {
+  CalendarDays,
+  ChevronFirst,
+  ChevronLast,
+  Component,
+  Folders,
+  PieChart,
+  Plus,
+  Settings,
+  Signal,
+} from "lucide-react";
 import { TaskList } from "./TaskList";
 import { ProjectsList } from "./ProjectList";
+import SidebarLink from "./SidebarLink";
+import ProfileCard from "./ProfileCard";
 
 const Sidebar = () => {
   const [navOpen, setNavOpen] = useState(true);
-  const [activeNav, setActiveNav] = useState("Projects");
+  const [activeNav, setActiveNav] = useState("Overview");
 
   return (
     <aside
-      className={` border-r  border-[#E6E4F0] h-full flex flex-col ${
+      className={` border-r  border-[#E6E4F0] h-full flex flex-col relative ${
         navOpen ? "w-[258px]" : "justify-center items-center w-[90px]"
       } `}
     >
@@ -22,7 +34,6 @@ const Sidebar = () => {
         className={`flex items-center gap-3   ${
           navOpen ? "m-[30px]" : "my-[30px] w-10 h-10"
         }  cursor-pointer`}
-        onClick={() => setNavOpen(!navOpen)}
       >
         <img src={logo} alt="logo " width={38} height={38} />
         {navOpen && (
@@ -32,16 +43,44 @@ const Sidebar = () => {
 
       {/* SIDEBAR NAVIGATION */}
       <nav className="flex flex-col px-5">
-        {sidebarNav.map((item) => (
-          <SidebarNavLinks
-            key={item.id}
-            name={item.name}
-            isActive={activeNav === item.name}
-            handleClick={() => setActiveNav(item.name)}
-            navOpen={navOpen}
-          />
-        ))}
+        <SidebarLink
+          text="Overview"
+          icon={<Component />}
+          navOpen={navOpen}
+          activeNav={activeNav}
+          handleClick={() => setActiveNav("Overview")}
+        />
+        <SidebarLink
+          text="Calendar"
+          icon={<CalendarDays />}
+          navOpen={navOpen}
+          activeNav={activeNav}
+          handleClick={() => setActiveNav("Calendar")}
+        />
+        <SidebarLink
+          text="Analytics"
+          icon={<PieChart />}
+          navOpen={navOpen}
+          activeNav={activeNav}
+          handleClick={() => setActiveNav("Analytics")}
+        />
+        <SidebarLink
+          text="Activity"
+          icon={<Signal />}
+          navOpen={navOpen}
+          activeNav={activeNav}
+          handleClick={() => setActiveNav("Activity")}
+        />
+        <SidebarLink
+          text="Projects"
+          icon={<Folders />}
+          navOpen={navOpen}
+          activeNav={activeNav}
+          handleClick={() => setActiveNav("Projects")}
+        />
       </nav>
+
+      {/* HR */}
       <hr
         className={`border border-gray-5 mx-auto  my-4 ${
           navOpen ? " w-[217px] " : " w-[60px] "
@@ -71,11 +110,14 @@ const Sidebar = () => {
           ))}
         </ul>
       </div>
+
+      {/* HR */}
       <hr
         className={`border border-gray-5 mx-auto  my-4 ${
           navOpen ? " w-[217px] " : " w-[60px] "
         }`}
       />
+
       {/* TASK LIST */}
       <div className="px-[30px] ">
         {navOpen && (
@@ -94,33 +136,20 @@ const Sidebar = () => {
               title={item.title}
               count={item.count}
               color={item.color}
-              colorBg={item.colorBg}
               navOpen={navOpen}
             />
           ))}
         </ul>
       </div>
-      <div
-        className={`h-[64px] flex  items-center justify-between border rounded-[10px] border-gray-4 p-2  mb-[22px]  mt-auto   mx-2  ${
-          !navOpen && " justify-center"
-        }`}
-      >
-        <div className="">
-          <img src={user} alt="user" className="" width={48} height={48} />
-          <span></span>
-        </div>
-        {navOpen && (
-          <>
-            <div className="flex flex-col -ml-4 text-sm">
-              <span className="font-medium text-gray-2">Mehmet Emin Avcil</span>
-              <span className="font-normal text-gray-3">Free Account</span>
-            </div>
-            <button className="">
-              <Settings color="gray" size={20} />
-            </button>
-          </>
-        )}
-      </div>
+      <button onClick={() => setNavOpen(!navOpen)}>
+        {navOpen ? <ChevronFirst /> : <ChevronLast />}
+      </button>
+
+      <ProfileCard
+        name="Mehmet Emin Avcil"
+        profileImageUrl="logo.png"
+        navOpen={navOpen}
+      />
     </aside>
   );
 };

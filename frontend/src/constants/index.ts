@@ -70,29 +70,52 @@ export const sidebarTasks = [
     id: "1",
     title: "Manage Finances",
     count: 52,
-    color: "#fd71af",
-    colorBg: "bg-lightPink",
+    color: "pink",
   },
   {
     id: "2",
     title: "Integrate ChatGPT",
     count: 15,
-    color: "#49ccf9",
-    colorBg: "bg-lightBlue",
+    color: "blue",
   },
   {
     id: "3",
     title: "Advertise Website",
     count: 5,
-    color: "#7b68ee",
-    colorBg: "bg-lightPurple",
+    color: "purple",
   },
   {
     id: "4",
     title: "Invest in DOGE",
     count: 2,
-    color: "#00b884",
-    colorBg: "bg-lightGreen",
+    color: "green",
+  },
+];
+
+export const Folders = [
+  {
+    id: "1",
+    title: "Manage Finances",
+    color: "pink",
+    createdAt: "Apr 2, 2023",
+  },
+  {
+    id: "2",
+    title: "Integrate ChatGPT",
+    color: "green",
+    createdAt: "Apr 2, 2023",
+  },
+  {
+    id: "3",
+    title: "Advertise Website",
+    color: "yellow",
+    createdAt: "Apr 2, 2023",
+  },
+  {
+    id: "4",
+    title: "Invest in DOGE",
+    color: "blue",
+    createdAt: "Apr 2, 2023",
   },
 ];
 
