@@ -3,7 +3,7 @@ import * as apiClient from "../API/api-client";
 
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export type RegisterFormData = {
   firstName: string;
@@ -133,10 +133,13 @@ const SignUp = () => {
 
         <button
           type="submit"
-          className="w-[40%] px-4 py-4 mt-6 font-semibold text-white rounded bg-green hover:bg-green/80"
+          className="w-full py-3 mx-auto mt-6 font-semibold text-white rounded bg-green hover:bg-green/80"
         >
           Create Account
         </button>
+        <Link to="/signin" className=" text-[#0866ff] text-center mt-2 ">
+          Already have an account?
+        </Link>
       </form>
     </div>
   );

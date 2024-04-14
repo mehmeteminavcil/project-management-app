@@ -3,7 +3,8 @@ import * as apiClient from "../API/api-client";
 
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export type SignInFormData = {
   email: string;
@@ -11,6 +12,9 @@ export type SignInFormData = {
 };
 
 const SignIn = () => {
+  const [forgottenPassword, setForgottenPassword] = useState(false);
+  const [forgottenPassword1, setForgottenPassword1] = useState(false);
+
   const queryClient = useQueryClient();
 
   const navigate = useNavigate();
@@ -36,7 +40,7 @@ const SignIn = () => {
   });
 
   return (
-    <div className="w-full h-[100vh] flex items-center justify-center bg-body">
+    <div className="w-full h-[100vh] flex  items-center justify-center bg-body">
       <form
         onSubmit={onSubmit}
         className="mx-auto border bg-[#fff] border-gray-5 max-w-[585px] w-full flex flex-col gap-4 p-10 rounded-2xl"
@@ -44,7 +48,9 @@ const SignIn = () => {
         <div className="flex items-center gap-3 mb-6">
           <img src={logo} alt="logo " width={38} height={38} />
           <h1 className="text-4xl font-medium text-gray-1">TaskFlow </h1>
-          <h2 className="ml-auto text-3xl font-semibold text-gray-1">SignIn</h2>
+          <h2 className="ml-auto text-3xl font-semibold text-gray-1">
+            Sign in
+          </h2>
         </div>
 
         <label className="flex flex-col gap-2 ">
@@ -80,10 +86,45 @@ const SignIn = () => {
 
         <button
           type="submit"
-          className="w-[40%] px-4 py-4 mt-6 font-semibold text-white rounded bg-green hover:bg-green/80"
+          className="py-3 mt-6 font-semibold text-white rounded-md bg-green hover:bg-green/80"
         >
-          SignIn
+          Sign in
         </button>
+
+        <span
+          className="text-center text-[#0866ff] font-semibold text-sm cursor-pointer"
+          onClick={() => setForgottenPassword(!forgottenPassword)}
+        >
+          Forgotten password?
+        </span>
+        {forgottenPassword && (
+          <span
+            className="font-semibold text-center cursor-pointer text-pink"
+            onClick={() => setForgottenPassword1(!forgottenPassword1)}
+          >
+            You are suck at remembering passwords. Click here to reset it!
+          </span>
+        )}
+        {forgottenPassword1 && (
+          <span className="font-semibold text-center cursor-pointer text-purple">
+            HAHA LOL we dont have that future :) <br /> your account is gone
+          </span>
+        )}
+        <div className="flex items-center justify-center gap-2">
+          <span className="w-full border border-gray-5"></span>
+          <span className="text-xs font-semibold text-center text-gray-2">
+            or
+          </span>
+          <span className="w-full border border-gray-5"></span>
+        </div>
+        <div className="flex justify-center">
+          <Link
+            to="/signup"
+            className="px-4 py-3 font-semibold text-white rounded-md bg-green hover:bg-green/80"
+          >
+            Create New Account
+          </Link>
+        </div>
       </form>
     </div>
   );

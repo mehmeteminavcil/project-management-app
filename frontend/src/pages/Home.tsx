@@ -1,6 +1,3 @@
-import FoldersSection from "../components/FoldersSection";
-import ProjectsSection from "../components/ProjectsSection";
-
 const Home = () => {
   return (
     <div className="flex flex-col flex-1 bg-body">

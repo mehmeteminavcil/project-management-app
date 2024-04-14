@@ -11,9 +11,9 @@ import Analytics from "./pages/Analytics";
 import Activity from "./pages/Activity";
 import Projects from "./pages/Projects";
 import SignUp from "./pages/SignUp";
-import Login from "./pages/SignIn";
 import Home from "./pages/Home";
 import { useAppContext } from "./contexts/AppContext";
+import SignIn from "./pages/SignIn";
 
 const App = () => {
   const { isLoggedIn } = useAppContext();
@@ -23,7 +23,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/signin" element={<Login />} />
+        <Route path="/signin" element={<SignIn />} />
         {isLoggedIn && (
           <>
             <Route

@@ -1,18 +1,16 @@
 import { useState } from "react";
 import logo from "../../assets/logo.png";
-import user from "../../assets/user.png";
 
 import { sidebarProjects, sidebarTasks } from "../../constants";
 
 import {
+  ArrowLeftToLine,
+  ArrowRightToLine,
   CalendarDays,
-  ChevronFirst,
-  ChevronLast,
   Component,
   Folders,
   PieChart,
   Plus,
-  Settings,
   Signal,
 } from "lucide-react";
 import { TaskList } from "./TaskList";
@@ -141,8 +139,12 @@ const Sidebar = () => {
           ))}
         </ul>
       </div>
-      <button onClick={() => setNavOpen(!navOpen)}>
-        {navOpen ? <ChevronFirst /> : <ChevronLast />}
+
+      <button
+        className="absolute text-gray-1 right-3 bottom-28"
+        onClick={() => setNavOpen(!navOpen)}
+      >
+        {navOpen ? <ArrowLeftToLine /> : <ArrowRightToLine />}
       </button>
 
       <ProfileCard
