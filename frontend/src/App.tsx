@@ -14,6 +14,7 @@ import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import { useAppContext } from "./contexts/AppContext";
 import SignIn from "./pages/SignIn";
+import AddTodoForm from "./forms/AddTodoForm";
 
 const App = () => {
   const { isLoggedIn } = useAppContext();
@@ -63,6 +64,14 @@ const App = () => {
               element={
                 <Layout>
                   <Projects />
+                </Layout>
+              }
+            />
+            <Route
+              path="/addTodo"
+              element={
+                <Layout>
+                  <AddTodoForm />
                 </Layout>
               }
             />

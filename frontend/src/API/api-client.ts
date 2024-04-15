@@ -1,5 +1,7 @@
+import { TodoFormData } from "../forms/AddTodoForm";
 import { SignInFormData } from "../pages/SignIn";
 import { RegisterFormData } from "../pages/SignUp";
+import { TodoType } from "../types/modelTypes";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -61,5 +63,36 @@ export const signout = async () => {
   });
   if (!response.ok) {
     throw new Error("Error during sign out!");
+  }
+};
+
+// fetch Todos
+
+export const fetchTodos = async (): Promise<TodoType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/todos`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Error fetching Todos..!");
+  }
+  return response.json();
+};
+
+// add todo
+
+export const addTodo = async (formData: TodoFormData) => {
+  const response = await fetch(`${API_BASE_URL}/api/todos`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+
+  const responseBody = await response.json();
+
+  if (!response.ok) {
+    throw new Error(responseBody.message);
   }
 };

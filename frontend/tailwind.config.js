@@ -24,6 +24,7 @@ export default {
       "gray-5": "#E6E4F0",
       body: "#f9f8ff",
       error: "#cc0000",
+      w: "#ffffff",
     },
     extend: {},
   },
