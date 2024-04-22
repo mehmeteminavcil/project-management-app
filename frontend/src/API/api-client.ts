@@ -5,6 +5,8 @@ import { TodoType } from "../types/modelTypes";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+// USER  ENDPOINTS --------------------------------------------------------------//
+
 // signup  -  create new user
 export const signup = async (formData: RegisterFormData) => {
   const response = await fetch(`${API_BASE_URL}/api/users/signup`, {
@@ -66,6 +68,7 @@ export const signout = async () => {
   }
 };
 
+// TODO  ENDPOINTS --------------------------------------------------------------//
 // fetch Todos
 
 export const fetchTodos = async (): Promise<TodoType[]> => {
@@ -96,3 +99,38 @@ export const addTodo = async (formData: TodoFormData) => {
     throw new Error(responseBody.message);
   }
 };
+
+// update todo
+
+export const updateTodo = async (todoId: string) => {
+  const response = await fetch(`${API_BASE_URL}/api/todos/${todoId}`, {
+    method: "PUT",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Error updating todo...!");
+  }
+  return response.json();
+};
+
+// delete todo
+
+export const deleteTodo = async (todoId: string) => {
+  const response = await fetch(`${API_BASE_URL}/api/todos/${todoId}`, {
+    method: "DELETE",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    throw new Error("Error deleting todo...!");
+  }
+  return response.json();
+};
+
+// NOTES  ENDPOINTS --------------------------------------------------------------//

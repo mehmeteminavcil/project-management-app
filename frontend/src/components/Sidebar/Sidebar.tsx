@@ -17,7 +17,7 @@ import { TaskList } from "./TaskList";
 import { ProjectsList } from "./ProjectList";
 import SidebarLink from "./SidebarLink";
 import ProfileCard from "./ProfileCard";
-
+console.log("sidebar rendered");
 const Sidebar = () => {
   const [navOpen, setNavOpen] = useState(true);
   const [activeNav, setActiveNav] = useState("Overview");

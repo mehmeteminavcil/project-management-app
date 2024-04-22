@@ -22,13 +22,10 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/signin" element={<SignIn />} />
         {isLoggedIn && (
           <>
             <Route
-              path="/overview"
+              path="/"
               element={
                 <Layout>
                   <Overview />
@@ -77,7 +74,9 @@ const App = () => {
             />
           </>
         )}
-
+        <Route path="/" element={<Home />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
