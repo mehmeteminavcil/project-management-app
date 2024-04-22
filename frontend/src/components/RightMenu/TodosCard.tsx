@@ -18,7 +18,7 @@ const TodosCard = ({
   handleDelete,
 }: TodosCardProps) => {
   return (
-    <div className="border border-gray-5 rounded-[10px] cursor-pointer  relative bg-[#f9f8ff] p-[10px] ">
+    <div className="border border-gray-5 rounded-[10px]   relative bg-[#f9f8ff] p-[10px] ">
       <div className="flex items-center gap-2">
         <div className="relative flex items-center justify-center ">
           <input
@@ -30,7 +30,7 @@ const TodosCard = ({
           />
           <label
             htmlFor="todoCheck"
-            className="w-4 h-4 border-[2px] rounded-[4px] border-gray-4 overflow-hidden "
+            className="w-4 h-4 border-[2px] rounded-[4px] border-gray-4 overflow-hidden cursor-pointer  "
             onClick={handleCheck}
           >
             {isChecked && (
@@ -61,7 +61,7 @@ const TodosCard = ({
       {isChecked && (
         <Trash2
           size={16}
-          className="absolute top-2 right-2 text-pink hover:scale-125"
+          className="absolute cursor-pointer top-2 right-2 text-pink hover:scale-125 "
           onClick={handleDelete}
         />
       )}

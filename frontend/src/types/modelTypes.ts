@@ -12,3 +12,12 @@ export type TagsType = {
   name: string;
   color: string;
 };
+
+export type NoteType = {
+  _id: string;
+  userId: string;
+  title: string;
+  text: string;
+  createdAt: string;
+  tags: TagsType[];
+};

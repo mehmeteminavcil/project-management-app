@@ -75,8 +75,8 @@ const Todos = ({ className }: TodosProps) => {
               handleCheck={() => handleCheck(item._id)}
               handleDelete={() => handleDelete(item._id)}
             >
-              {item.tags?.map((item) => (
-                <Tag key={item._id} tag={item.name} color={item.color} />
+              {item.tags?.map((tag) => (
+                <Tag key={tag._id} tag={tag.name} color={tag.color} />
               ))}
             </TodosCard>
           ))}

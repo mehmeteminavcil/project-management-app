@@ -1,7 +1,8 @@
+import { NoteFormData } from "../forms/AddNotesForm";
 import { TodoFormData } from "../forms/AddTodoForm";
 import { SignInFormData } from "../pages/SignIn";
 import { RegisterFormData } from "../pages/SignUp";
-import { TodoType } from "../types/modelTypes";
+import { NoteType, TodoType } from "../types/modelTypes";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -81,7 +82,7 @@ export const fetchTodos = async (): Promise<TodoType[]> => {
   return response.json();
 };
 
-// add todo
+// add new todo
 
 export const addTodo = async (formData: TodoFormData) => {
   const response = await fetch(`${API_BASE_URL}/api/todos`, {
@@ -100,7 +101,7 @@ export const addTodo = async (formData: TodoFormData) => {
   }
 };
 
-// update todo
+// update todo check status
 
 export const updateTodo = async (todoId: string) => {
   const response = await fetch(`${API_BASE_URL}/api/todos/${todoId}`, {
@@ -134,3 +135,33 @@ export const deleteTodo = async (todoId: string) => {
 };
 
 // NOTES  ENDPOINTS --------------------------------------------------------------//
+
+// add new note
+export const addNote = async (formData: NoteFormData) => {
+  const response = await fetch(`${API_BASE_URL}/api/notes`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+
+  if (!response.ok) {
+    throw new Error("Error creating new note...!");
+  }
+  return response.json();
+};
+
+// get all note
+export const fetchNotes = async (): Promise<NoteType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/notes`, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Error fetching notes...!");
+  }
+  return response.json();
+};

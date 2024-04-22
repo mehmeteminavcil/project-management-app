@@ -14,7 +14,7 @@ import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import { useAppContext } from "./contexts/AppContext";
 import SignIn from "./pages/SignIn";
-import AddTodoForm from "./forms/AddTodoForm";
+import AddNotesForm from "./forms/AddNotesForm";
 
 const App = () => {
   const { isLoggedIn } = useAppContext();
@@ -65,10 +65,10 @@ const App = () => {
               }
             />
             <Route
-              path="/addTodo"
+              path="/addNewNote"
               element={
                 <Layout>
-                  <AddTodoForm />
+                  <AddNotesForm />
                 </Layout>
               }
             />

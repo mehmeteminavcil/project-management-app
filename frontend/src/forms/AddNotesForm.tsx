@@ -1,14 +1,13 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
-import { useNavigate } from "react-router-dom";
-import * as apiClient from "../API/api-client";
 import AddTag from "../components/AddTag";
-
-export type TodoFormData = {
+import { useState } from "react";
+import { useMutation } from "react-query";
+import * as apiClient from "../API/api-client";
+export type NoteFormData = {
   _id: string;
   userId: string;
   title: string;
+  text: string;
   tags: TagsTypeData[];
 };
 
@@ -16,23 +15,17 @@ export type TagsTypeData = {
   name: string;
   color: string;
 };
+const AddNotesForm = () => {
+  const { register, handleSubmit } = useForm<NoteFormData>();
 
-const AddTodoForm = () => {
-  const { register, handleSubmit } = useForm<TodoFormData>();
-
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation(apiClient.addTodo, {
+  const mutation = useMutation(apiClient.addNote, {
     onSuccess: async () => {
-      await queryClient.invalidateQueries("validateToken");
-      navigate("/Overview");
+      console.log("OK!");
     },
     onError: (error: Error) => {
       console.log(JSON.stringify(error));
     },
   });
-
   const onSubmit = handleSubmit((data) => {
     data.tags = tags;
     mutation.mutate(data);
@@ -49,25 +42,32 @@ const AddTodoForm = () => {
 
   return (
     <div className="w-full border rounded-md border-gray-5 bg-[#f9f8ff] p-[10px] ">
-      <h2 className="my-4 font-semibold text-gray-1">Add New Todo</h2>
+      <h2 className="my-4 font-semibold text-gray-1">Add New Note</h2>
       <form onSubmit={onSubmit} className="flex flex-col gap-6">
         <label>
-          Todo:
+          Title:
           <input
             type="text"
             className="w-full border rounded-md outline-none border-gray-4"
             {...register("title")}
           />
         </label>
+        <label>
+          Text:
+          <textarea
+            className="w-full p-3 border rounded-md outline-none min-h-40 max-h-[500px] border-gray-4 "
+            {...register("text")}
+          />
+        </label>
 
-        <div className="flex flex-col gap-6">
+        <div>
           <AddTag
             tags={tags}
             onAddTag={handleAddTag}
             onRemoveTag={handleRemoveTag}
           />
         </div>
-        <button className="px-3 py-1 mt-2 rounded-md bg-purple hover:bg-purple/85 text-w w-[200px] mx-auto">
+        <button className="px-3 py-2 mt-2 rounded-md bg-purple hover:bg-purple/85 text-w w-[200px] mx-auto">
           Add Todo
         </button>
       </form>
@@ -75,4 +75,4 @@ const AddTodoForm = () => {
   );
 };
 
-export default AddTodoForm;
+export default AddNotesForm;
