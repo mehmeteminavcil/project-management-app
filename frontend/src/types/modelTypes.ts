@@ -21,3 +21,16 @@ export type NoteType = {
   createdAt: string;
   tags: TagsType[];
 };
+
+export type NoteFormData = {
+  _id: string;
+  userId: string;
+  title: string;
+  text: string;
+  tags: TagsTypeData[];
+};
+
+export type TagsTypeData = {
+  name: string;
+  color: string;
+};

@@ -10,7 +10,6 @@ type NotesProps = {
 };
 const Notes = ({ className }: NotesProps) => {
   const { data: notesData } = useQuery("fetchNotes", apiClient.fetchNotes);
-  console.log(notesData);
 
   return (
     <div className={`${className}  `}>
@@ -31,6 +30,7 @@ const Notes = ({ className }: NotesProps) => {
         <div className="flex flex-col h-full gap-2 pb-12 pl-5 pr-4 mt-3 overflow-auto ">
           {notesData?.map((item) => (
             <NotesCard
+              _id={item._id}
               key={item._id}
               title={item.title}
               text={item.text}

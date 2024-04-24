@@ -1,8 +1,7 @@
-import { NoteFormData } from "../forms/AddNotesForm";
 import { TodoFormData } from "../forms/AddTodoForm";
 import { SignInFormData } from "../pages/SignIn";
 import { RegisterFormData } from "../pages/SignUp";
-import { NoteType, TodoType } from "../types/modelTypes";
+import { NoteType, TodoType, NoteFormData } from "../types/modelTypes";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -147,10 +146,11 @@ export const addNote = async (formData: NoteFormData) => {
     body: JSON.stringify(formData),
   });
 
+  const responseBody = await response.json();
+
   if (!response.ok) {
-    throw new Error("Error creating new note...!");
+    throw new Error(responseBody.message);
   }
-  return response.json();
 };
 
 // get all note
@@ -163,5 +163,35 @@ export const fetchNotes = async (): Promise<NoteType[]> => {
   if (!response.ok) {
     throw new Error("Error fetching notes...!");
   }
+  return response.json();
+};
+
+// fetch note by ID
+export const fetchNoteById = async (noteId: string): Promise<NoteType> => {
+  const response = await fetch(`${API_BASE_URL}/api/notes/${noteId}`);
+  if (!response.ok) {
+    throw new Error("Error fetching note...!");
+  }
+  return response.json();
+};
+
+// update note
+export const updateNote = async (NoteFormData: NoteFormData) => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/notes/${NoteFormData._id}`,
+    {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(NoteFormData),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to update note..!");
+  }
+
   return response.json();
 };
