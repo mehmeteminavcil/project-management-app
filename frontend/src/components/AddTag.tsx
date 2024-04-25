@@ -54,7 +54,7 @@ const AddTag = ({ tags, onAddTag, onRemoveTag }: AddTagProps) => {
             onChange={(e) => setTagName(e.target.value)}
             className="px-2 border rounded-md outline-none border-gray-4"
           />
-          <div className="flex gap-3 ">
+          <div className="flex gap-3 mx-auto ">
             {colors.map((color, index) => (
               <label key={index} className="flex items-center cursor-pointer">
                 <input
@@ -77,7 +77,7 @@ const AddTag = ({ tags, onAddTag, onRemoveTag }: AddTagProps) => {
         <button
           type="button"
           onClick={handleAddTag}
-          className="font-bold text-white rounded bg-green hover:bg-green/85 w-[150px]"
+          className="font-bold text-white rounded h-8 bg-green hover:bg-green/85 w-[150px]"
         >
           Add
         </button>

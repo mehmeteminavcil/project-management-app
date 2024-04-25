@@ -82,4 +82,16 @@ router.post("/", verifyToken, async (req: Request, res: Response) => {
   }
 });
 
+// delete a note
+
+router.delete("/:id", async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const newTodos = await Note.findByIdAndDelete(id);
+    res.status(200).json(newTodos);
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting Note...!" });
+  }
+});
+
 export default router;

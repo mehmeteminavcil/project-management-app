@@ -14,9 +14,8 @@ import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import { useAppContext } from "./contexts/AppContext";
 import SignIn from "./pages/SignIn";
-import AddNotesForm from "./forms/AddNotesForm";
 import EditNote from "./pages/EditNote";
-import ManageNoteForm from "./forms/ManageNoteForm";
+import AddNote from "./pages/AddNote";
 
 const App = () => {
   const { isLoggedIn } = useAppContext();
@@ -70,7 +69,7 @@ const App = () => {
               path="/addNewNote"
               element={
                 <Layout>
-                  <AddNotesForm />
+                  <AddNote />
                 </Layout>
               }
             />
@@ -79,14 +78,6 @@ const App = () => {
               element={
                 <Layout>
                   <EditNote />
-                </Layout>
-              }
-            />
-            <Route
-              path="/test"
-              element={
-                <Layout>
-                  <ManageNoteForm />
                 </Layout>
               }
             />

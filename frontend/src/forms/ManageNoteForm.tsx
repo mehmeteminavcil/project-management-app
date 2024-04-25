@@ -1,26 +1,14 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { NoteType } from "../types/modelTypes";
+import { NoteFormData, NoteType } from "../types/modelTypes";
 import AddTag from "../components/AddTag";
-
-export type NoteFormData = {
-  _id: string;
-  userId: string;
-  title: string;
-  text: string;
-  tags: TagsTypeData[];
-};
-
-export type TagsTypeData = {
-  name: string;
-  color: string;
-};
 
 type NoteFormProps = {
   note?: NoteType;
   onSave: (noteFormData: NoteFormData) => void;
+  edit: boolean;
 };
-const ManageNoteForm = ({ note, onSave }: NoteFormProps) => {
+const ManageNoteForm = ({ note, onSave, edit }: NoteFormProps) => {
   const { handleSubmit, register, reset } = useForm<NoteFormData>({
     defaultValues: note
       ? {
@@ -61,7 +49,7 @@ const ManageNoteForm = ({ note, onSave }: NoteFormProps) => {
           Title:
           <input
             type="text"
-            className="w-full border rounded-md outline-none border-gray-4"
+            className="w-full px-3 py-1 font-semibold border rounded-md outline-none border-gray-4"
             {...register("title")}
           />
         </label>
@@ -80,7 +68,7 @@ const ManageNoteForm = ({ note, onSave }: NoteFormProps) => {
           />
         </div>
         <button className="px-3 py-2 mt-2 rounded-md bg-purple hover:bg-purple/85 text-w w-[200px] mx-auto">
-          Update
+          {edit ? "Update Note" : "Add Note"}
         </button>
       </div>
     </form>

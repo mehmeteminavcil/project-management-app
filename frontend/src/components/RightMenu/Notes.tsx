@@ -1,15 +1,30 @@
 import { NotebookPen, Plus } from "lucide-react";
 import NotesCard from "./NotesCard";
 import { Link } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as apiClient from "../../API/api-client";
 import { Tag } from "../Tags";
+import { formatDate } from "../../utils";
 
 type NotesProps = {
   className: string;
 };
 const Notes = ({ className }: NotesProps) => {
+  const queryClient = useQueryClient();
   const { data: notesData } = useQuery("fetchNotes", apiClient.fetchNotes);
+
+  const { mutate } = useMutation(apiClient.deleteNote, {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries("fetchNotes");
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const handleDelete = (noteId: string) => {
+    mutate(noteId);
+  };
 
   return (
     <div className={`${className}  `}>
@@ -34,7 +49,8 @@ const Notes = ({ className }: NotesProps) => {
               key={item._id}
               title={item.title}
               text={item.text}
-              createdAt={item.createdAt}
+              createdAt={formatDate(item.createdAt)}
+              handleDelete={() => handleDelete(item._id)}
             >
               {item.tags?.map((tag) => (
                 <Tag key={tag._id} tag={tag.name} color={tag.color} />

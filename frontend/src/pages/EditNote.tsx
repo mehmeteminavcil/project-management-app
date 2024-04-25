@@ -3,18 +3,8 @@ import * as apiClient from "../API/api-client";
 import { useNavigate, useParams } from "react-router-dom";
 
 import ManageNoteForm from "../forms/ManageNoteForm";
-export type NoteFormData = {
-  _id: string;
-  userId: string;
-  title: string;
-  text: string;
-  tags: TagsTypeData[];
-};
+import { NoteFormData } from "../types/modelTypes";
 
-export type TagsTypeData = {
-  name: string;
-  color: string;
-};
 const EditNote = () => {
   const { noteId } = useParams();
   const navigate = useNavigate();
@@ -39,7 +29,7 @@ const EditNote = () => {
     mutate(data);
   };
 
-  return <ManageNoteForm note={note} onSave={handleSave} />;
+  return <ManageNoteForm note={note} onSave={handleSave} edit />;
 };
 
 export default EditNote;

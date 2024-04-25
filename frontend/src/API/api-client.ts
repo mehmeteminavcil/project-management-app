@@ -195,3 +195,19 @@ export const updateNote = async (NoteFormData: NoteFormData) => {
 
   return response.json();
 };
+
+// delete a note
+
+export const deleteNote = async (noteId: string) => {
+  const response = await fetch(`${API_BASE_URL}/api/notes/${noteId}`, {
+    method: "DELETE",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    throw new Error("Error deleting note...!");
+  }
+  return response.json();
+};

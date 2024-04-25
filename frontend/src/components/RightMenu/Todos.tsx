@@ -5,15 +5,10 @@ import * as apiClient from "../../API/api-client";
 import { Tag } from "../Tags";
 import AddTodoForm from "../../forms/AddTodoForm";
 import { useState } from "react";
+import { removeTime } from "../../utils";
 
 type TodosProps = {
   className?: string;
-};
-
-const removeTime = (timestamp: string) => {
-  const index = timestamp.indexOf("T");
-  const dateOnly = timestamp.substring(0, index);
-  return dateOnly;
 };
 
 const Todos = ({ className }: TodosProps) => {
@@ -22,17 +17,17 @@ const Todos = ({ className }: TodosProps) => {
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(apiClient.updateTodo, {
+  const updateMutation = useMutation(apiClient.updateTodo, {
     onSuccess: async () => {
       await queryClient.invalidateQueries("fetchTodos");
     },
-    onError: (error: Error) => {
-      console.log(JSON.stringify(error));
+    onError: (error) => {
+      console.log(error);
     },
   });
 
   const handleCheck = (item: string) => {
-    mutation.mutate(item);
+    updateMutation.mutate(item);
   };
 
   const deleteMutation = useMutation(apiClient.deleteTodo, {

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import * as apiClient from "../API/api-client";
 import AddTag from "../components/AddTag";
@@ -21,12 +21,10 @@ const AddTodoForm = () => {
   const { register, handleSubmit } = useForm<TodoFormData>();
 
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
 
-  const mutation = useMutation(apiClient.addTodo, {
+  const { mutate } = useMutation(apiClient.addTodo, {
     onSuccess: async () => {
-      await queryClient.invalidateQueries("validateToken");
-      navigate("/Overview");
+      navigate("/overview");
     },
     onError: (error: Error) => {
       console.log(JSON.stringify(error));
@@ -35,7 +33,7 @@ const AddTodoForm = () => {
 
   const onSubmit = handleSubmit((data) => {
     data.tags = tags;
-    mutation.mutate(data);
+    mutate(data);
   });
 
   //AddTag component  uses this state and funcitons
