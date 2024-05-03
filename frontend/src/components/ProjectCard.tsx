@@ -1,18 +1,11 @@
 import { Ellipsis } from "lucide-react";
-import { Tag } from "./Tags";
-
-type Tag = {
-  id: string;
-  tag: string;
-  color: string;
-};
 
 type ProjectCardProps = {
   imgUrl: string;
   projectImgUrl: string;
   title: string;
   description: string;
-  tag: Tag[];
+  children?: React.ReactNode;
 };
 
 const ProjectCard = ({
@@ -20,7 +13,7 @@ const ProjectCard = ({
   projectImgUrl,
   title,
   description,
-  tag,
+  children,
 }: ProjectCardProps) => {
   return (
     <div className="p-[10px] border border-gray-5 rounded-[10px] flex flex-col">
@@ -40,12 +33,7 @@ const ProjectCard = ({
         </div>
       </div>
 
-      <div className="flex items-center gap-2 mb-3">
-        {tag &&
-          tag.map((item) => (
-            <Tag key={item.id} tag={item.tag} color={item.color} />
-          ))}
-      </div>
+      <div className="flex items-center gap-2 mb-3">{children}</div>
     </div>
   );
 };

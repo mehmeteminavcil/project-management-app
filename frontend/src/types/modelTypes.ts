@@ -34,3 +34,15 @@ export type TagsTypeData = {
   name: string;
   color: string;
 };
+
+export type ProjectType = {
+  _id: string;
+  userId: string;
+  name: string;
+  title: string;
+  description: string;
+  deadline: string;
+  team: [];
+  tags: TagsType[];
+  imageUrls: string[];
+};

@@ -5,7 +5,6 @@ import Todo, { TodoType } from "../models/todo";
 const router = express.Router();
 
 // get all todos
-
 router.get("/", verifyToken, async (req: Request, res: Response) => {
   try {
     const todos = await Todo.aggregate([
@@ -14,19 +13,27 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
     ]);
     res.json(todos);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching Todos..!" });
+    console.error("Error fetching Todos:", error);
+    res.status(500).json({ message: "Error fetching Todos" });
   }
 });
 
 // delete todo
-
 router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
-    const newTodos = await Todo.findByIdAndDelete(id);
-    res.status(200).json(newTodos);
+    // Validate if ID is provided
+    if (!id) {
+      return res.status(400).json({ message: "Todo ID is required" });
+    }
+    const deletedTodo = await Todo.findByIdAndDelete(id);
+    if (!deletedTodo) {
+      return res.status(404).json({ message: "Todo not found" });
+    }
+    res.status(200).json(deletedTodo);
   } catch (error) {
-    res.status(500).json({ message: "Error deleting Todo...!" });
+    console.error("Error deleting Todo:", error);
+    res.status(500).json({ message: "Error deleting Todo" });
   }
 });
 
@@ -51,17 +58,19 @@ router.put("/:id", async (req: Request, res: Response) => {
 });
 
 // add new todo
+
 router.post("/", verifyToken, async (req: Request, res: Response) => {
   try {
     const newTodo: TodoType = req.body;
     newTodo.userId = req.userId;
     const todo = new Todo(newTodo);
     todo.date = new Date();
+
     await todo.save();
-    res.status(201).send(todo);
+    res.status(201).json(todo);
   } catch (error) {
-    console.log("Error creating todo..!", error);
-    res.status(501).json({ message: "Something went wrong" });
+    console.error("Error creating todo:", error);
+    res.status(500).json({ message: "Error creating todo" });
   }
 });
 

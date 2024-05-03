@@ -59,7 +59,7 @@ const SignUp = () => {
 
             <input
               type="text"
-              className="p-3 border rounded-md outline-none border-gray-5"
+              className="p-3 capitalize border rounded-md outline-none border-gray-5"
               {...register("firstName", {
                 required: "This field is required!",
               })}
@@ -73,7 +73,7 @@ const SignUp = () => {
 
             <input
               type="text"
-              className="p-3 border rounded-md outline-none border-gray-5"
+              className="p-3 capitalize border rounded-md outline-none border-gray-5"
               {...register("lastName", { required: "This field is required!" })}
             />
           </label>

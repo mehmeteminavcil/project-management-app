@@ -17,6 +17,7 @@ import { TaskList } from "./TaskList";
 import { ProjectsList } from "./ProjectList";
 import SidebarLink from "./SidebarLink";
 import ProfileCard from "./ProfileCard";
+import { Link } from "react-router-dom";
 console.log("sidebar rendered");
 const Sidebar = () => {
   const [navOpen, setNavOpen] = useState(true);
@@ -90,9 +91,13 @@ const Sidebar = () => {
         {navOpen && (
           <div className="flex items-center justify-between border-gray-5 ">
             <h3 className="text-sm font-medium text-gray-4">PROJECTS</h3>
-            <button className="flex items-center justify-center w-4 h-4 rounded-sm bg-lightViolet">
+
+            <Link
+              to="/add-new-project"
+              className="flex items-center justify-center w-4 h-4 rounded-sm bg-lightViolet"
+            >
               <Plus width={12} height={12} color="#5577ff" />
-            </button>
+            </Link>
           </div>
         )}
         <ul className="flex flex-col gap-[10px] mt-[10px]">
@@ -121,9 +126,13 @@ const Sidebar = () => {
         {navOpen && (
           <div className="flex items-center justify-between border-gray-5 ">
             <h3 className="text-sm font-medium text-gray-4">TASKS</h3>
-            <button className="flex items-center justify-center w-4 h-4 rounded-sm bg-lightViolet">
+
+            <Link
+              to="/add-new-project"
+              className="flex items-center justify-center w-4 h-4 rounded-sm bg-lightViolet"
+            >
               <Plus width={12} height={12} color="#5577ff" />
-            </button>
+            </Link>
           </div>
         )}
         <ul className="flex flex-col gap-[10px] mt-[26px]">

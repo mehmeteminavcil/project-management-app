@@ -1,7 +1,12 @@
 import { TodoFormData } from "../forms/AddTodoForm";
 import { SignInFormData } from "../pages/SignIn";
 import { RegisterFormData } from "../pages/SignUp";
-import { NoteType, TodoType, NoteFormData } from "../types/modelTypes";
+import {
+  NoteType,
+  TodoType,
+  NoteFormData,
+  ProjectType,
+} from "../types/modelTypes";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -208,6 +213,49 @@ export const deleteNote = async (noteId: string) => {
   });
   if (!response.ok) {
     throw new Error("Error deleting note...!");
+  }
+  return response.json();
+};
+
+// create a new project
+export const createProject = async (projectFormData: FormData) => {
+  const response = await fetch(`${API_BASE_URL}/api/projects`, {
+    method: "POST",
+    credentials: "include",
+
+    body: projectFormData,
+  });
+  if (!response.ok) {
+    throw new Error("Failed to create project..!");
+  }
+  return response.json();
+};
+
+// get projectCard
+
+export const getProjectCards = async (): Promise<ProjectType[]> => {
+  const response = await fetch(`${API_BASE_URL}/api/projects`, {
+    method: "GET",
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Error fetching project cards...!");
+  }
+  return response.json();
+};
+
+/// Test
+
+export const createTest = async (testFormData: FormData) => {
+  const response = await fetch(`${API_BASE_URL}/api/tests`, {
+    method: "POST",
+    credentials: "include",
+
+    body: testFormData,
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to create Test");
   }
   return response.json();
 };

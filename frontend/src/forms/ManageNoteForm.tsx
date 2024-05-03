@@ -6,7 +6,7 @@ import AddTag from "../components/AddTag";
 type NoteFormProps = {
   note?: NoteType;
   onSave: (noteFormData: NoteFormData) => void;
-  edit: boolean;
+  edit?: boolean;
 };
 const ManageNoteForm = ({ note, onSave, edit }: NoteFormProps) => {
   const { handleSubmit, register, reset } = useForm<NoteFormData>({

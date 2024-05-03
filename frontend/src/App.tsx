@@ -16,6 +16,8 @@ import { useAppContext } from "./contexts/AppContext";
 import SignIn from "./pages/SignIn";
 import EditNote from "./pages/EditNote";
 import AddNote from "./pages/AddNote";
+import AddProject from "./pages/AddProject";
+import TestPage from "./pages/TestPage";
 
 const App = () => {
   const { isLoggedIn } = useAppContext();
@@ -66,10 +68,26 @@ const App = () => {
               }
             />
             <Route
+              path="/add-new-project"
+              element={
+                <Layout>
+                  <AddProject />
+                </Layout>
+              }
+            />
+            <Route
               path="/addNewNote"
               element={
                 <Layout>
                   <AddNote />
+                </Layout>
+              }
+            />
+            <Route
+              path="/test"
+              element={
+                <Layout>
+                  <TestPage />
                 </Layout>
               }
             />

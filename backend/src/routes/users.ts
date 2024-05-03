@@ -72,4 +72,20 @@ router.post(
   }
 );
 
+//search user and get
+router.get("/search-user", async (req, res) => {
+  const { email } = req.query;
+
+  try {
+    // Use a regular expression to perform a case-insensitive search for emails
+    const users = await User.find({
+      email: { $regex: new RegExp(email as string, "i") },
+    }).select("_id email firstName lastName");
+    res.json(users);
+  } catch (error) {
+    console.error("Error searching users:", error);
+    res.status(500).json({ message: "Something went wrong!" });
+  }
+});
+
 export default router;
