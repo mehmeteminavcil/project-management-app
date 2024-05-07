@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { TagsTypeData } from "../types/modelTypes";
 import DatePicker from "react-datepicker";
@@ -17,6 +17,10 @@ export type ProjectFormData = {
   tags: TagsTypeData[];
   imageFiles: FileList;
   imageUrls: string[];
+  logoImgFile: FileList;
+  logoUrl: string;
+  bannerImgFile: FileList;
+  bannerUrl: string;
 };
 
 type Team = {
@@ -34,13 +38,13 @@ type Props = {
 
 const ManageProjectForm = ({ project, onSave }: Props) => {
   const formMethods = useForm<ProjectFormData>();
-  const { handleSubmit, register, reset } = formMethods;
+  const { handleSubmit, register } = formMethods;
 
   const [startDate, setStartDate] = useState<Date | null>(new Date());
 
-  useEffect(() => {
-    reset(project);
-  }, [project, reset]);
+  // useEffect(() => {
+  //   reset(project);
+  // }, [project, reset]);
 
   const onSubmit = handleSubmit((formDataJson: ProjectFormData) => {
     const formData = new FormData();
@@ -66,6 +70,13 @@ const ManageProjectForm = ({ project, onSave }: Props) => {
 
     Array.from(formDataJson.imageFiles).forEach((imageFile) => {
       formData.append(`imageFiles`, imageFile);
+    });
+
+    Array.from(formDataJson.logoImgFile).forEach((imageFile) => {
+      formData.append(`logoImgFile`, imageFile);
+    });
+    Array.from(formDataJson.bannerImgFile).forEach((imageFile) => {
+      formData.append(`bannerImgFile`, imageFile);
     });
 
     console.log(formDataJson);
@@ -109,8 +120,9 @@ const ManageProjectForm = ({ project, onSave }: Props) => {
 
           <AddTagSection />
           <AddTeam />
-          <AddImage />
-
+          <AddImage title="Logo Image" name="logoImgFile" />
+          <AddImage title="Banner Image" name="bannerImgFile" />
+          <AddImage title="Image Files" multiple name="imageFiles" />
           <button
             type="submit"
             className="px-3 py-2 mt-2 rounded-md bg-purple hover:bg-purple/85 text-w w-[200px] mx-auto"

@@ -9,6 +9,8 @@ export type ProjectType = {
   deadline: string;
   team: { userId: mongoose.Types.ObjectId; email: string; isAdmin: boolean }[];
   tags: TagsType[];
+  logoUrl: string[];
+  bannerUrl: string[];
   imageUrls: string[];
 };
 
@@ -30,7 +32,9 @@ const ProjectSchema = new mongoose.Schema(
     title: { type: String, required: true },
     description: { type: String, required: true },
     deadline: { type: String, required: false },
-    imageUrls: [{ type: String, required: false }],
+    logoUrl: [{ type: String }],
+    bannerUrl: [{ type: String }],
+    imageUrls: [{ type: String }],
     team: [
       {
         userId: { type: Schema.Types.ObjectId, ref: "User" },

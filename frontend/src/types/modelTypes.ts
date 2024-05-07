@@ -45,4 +45,6 @@ export type ProjectType = {
   team: [];
   tags: TagsType[];
   imageUrls: string[];
+  logoUrl: string;
+  bannerUrl: string;
 };

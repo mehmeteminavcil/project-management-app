@@ -3,6 +3,7 @@ import ProjectCard from "./ProjectCard";
 import * as apiClient from "../API/api-client";
 import { useQuery } from "react-query";
 import { Tag } from "./Tags";
+import { Link } from "react-router-dom";
 
 const ProjectsSection = () => {
   const { data: projectCardData } = useQuery(
@@ -19,17 +20,19 @@ const ProjectsSection = () => {
       </div>
       <div className="grid gap-[22px] grid-cols-[repeat(auto-fill,minmax(250px,1fr))]">
         {projectCardData?.map((item) => (
-          <ProjectCard
-            key={item._id}
-            imgUrl={item.imageUrls[0]}
-            title={item.name}
-            projectImgUrl={item.imageUrls[0]}
-            description={item.title}
-          >
-            {item.tags?.map((tag) => (
-              <Tag key={tag._id} tag={tag.name} color={tag.color} />
-            ))}
-          </ProjectCard>
+          <Link to={item._id}>
+            <ProjectCard
+              key={item._id}
+              bannerUrl={item.bannerUrl}
+              title={item.name}
+              projectLogo={item.logoUrl}
+              description={item.title}
+            >
+              {item.tags?.map((tag) => (
+                <Tag key={tag._id} tag={tag.name} color={tag.color} />
+              ))}
+            </ProjectCard>
+          </Link>
         ))}
       </div>
     </div>

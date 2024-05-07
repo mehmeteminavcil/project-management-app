@@ -1,7 +1,7 @@
 import { useState } from "react";
 import logo from "../../assets/logo.png";
 
-import { sidebarProjects, sidebarTasks } from "../../constants";
+import { sidebarTasks } from "../../constants";
 
 import {
   ArrowLeftToLine,
@@ -18,8 +18,15 @@ import { ProjectsList } from "./ProjectList";
 import SidebarLink from "./SidebarLink";
 import ProfileCard from "./ProfileCard";
 import { Link } from "react-router-dom";
+import { useQuery } from "react-query";
+import * as apiClient from "../../API/api-client";
 console.log("sidebar rendered");
 const Sidebar = () => {
+  const { data: projectData } = useQuery(
+    "getProjectsCard",
+    apiClient.getProjectCards
+  );
+
   const [navOpen, setNavOpen] = useState(true);
   const [activeNav, setActiveNav] = useState("Overview");
 
@@ -101,13 +108,13 @@ const Sidebar = () => {
           </div>
         )}
         <ul className="flex flex-col gap-[10px] mt-[10px]">
-          {sidebarProjects.map((item) => (
+          {projectData?.map((item) => (
             <ProjectsList
-              id={item.id}
-              key={item.id}
-              title={item.title}
-              imgUrl={item.imgUrl}
-              count={item.count}
+              id={item._id}
+              key={item._id}
+              name={item.name}
+              logoUrl={item.logoUrl}
+              count={99}
               navOpen={navOpen}
             />
           ))}

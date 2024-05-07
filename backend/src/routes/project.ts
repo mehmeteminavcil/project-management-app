@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
-import multer from "multer";
-import cloudinary from "cloudinary";
 import verifyToken from "../middleware/auth";
 import Project, { ProjectType } from "../models/project";
+import multer from "multer";
+import cloudinary from "cloudinary";
 
 const router = express.Router();
 
@@ -14,7 +14,50 @@ const upload = multer({
   },
 });
 
-//get users project
+// create new project
+router.post(
+  "/",
+
+  verifyToken,
+  upload.fields([
+    { name: "logoImgFile", maxCount: 1 },
+    { name: "bannerImgFile", maxCount: 1 },
+    { name: "imageFiles", maxCount: 6 },
+  ]),
+  async (req: Request, res: Response) => {
+    try {
+      const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+      const imageFiles = files["imageFiles"] || [];
+      const logoImgFiles = files["logoImgFile"] || [];
+      const bannerImgFiles = files["bannerImgFile"] || [];
+
+      const newProject: ProjectType = req.body;
+
+      // upload images
+      const imageUrls = await uploadImages(imageFiles);
+      newProject.imageUrls = imageUrls;
+
+      const logoUrl = await uploadImages(logoImgFiles);
+      newProject.logoUrl = logoUrl;
+
+      const bannerUrl = await uploadImages(bannerImgFiles);
+      newProject.bannerUrl = bannerUrl;
+
+      newProject.userId = req.userId;
+      const project = new Project(newProject);
+      console.log(req.body);
+      console.log("--------------------------------------");
+      console.log(project);
+      await project.save();
+      res.status(201).json(project);
+    } catch (error) {
+      console.error("Error creating project:", error);
+      res.status(500).json({ message: "Error creating project" });
+    }
+  }
+);
+// get users project
 router.get("/", verifyToken, async (req: Request, res: Response) => {
   try {
     const userId = req.userId;
@@ -25,46 +68,15 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
-
-// create new project
-router.post(
-  "/",
-  verifyToken,
-  upload.array("imageFiles", 6),
-  async (req: Request, res: Response) => {
-    try {
-      const imageFiles = req.files as Express.Multer.File[];
-      const newProject: ProjectType = req.body;
-
-      const imageUrls = await uploadImages(imageFiles);
-      newProject.imageUrls = imageUrls;
-      newProject.userId = req.userId;
-
-      const project = new Project(newProject);
-      await project.save();
-      res.status(201).json(project);
-    } catch (error) {
-      console.error("Error creating project:", error);
-      res.status(500).json({ message: "Error creating project" });
-    }
-  }
-);
-
-// Image upload function
-async function uploadImages(imageFiles: Express.Multer.File[]) {
-  try {
-    const uploadPromises = imageFiles.map(async (image) => {
-      const b64 = Buffer.from(image.buffer).toString("base64");
-      let dataURI = "data:" + image.mimetype + ";base64," + b64;
-      const res = await cloudinary.v2.uploader.upload(dataURI);
-      return res.url;
-    });
-    const imageUrls = await Promise.all(uploadPromises);
-    return imageUrls;
-  } catch (error) {
-    console.error("Error uploading images:", error);
-    throw new Error("Error uploading images");
-  }
-}
-
 export default router;
+
+async function uploadImages(imageFiles: Express.Multer.File[]) {
+  const uploadPromises = imageFiles.map(async (image) => {
+    const b64 = Buffer.from(image.buffer).toString("base64");
+    let dataURI = "data:" + image.mimetype + ";base64," + b64;
+    const res = await cloudinary.v2.uploader.upload(dataURI);
+    return res.url;
+  });
+  const imageUrls = await Promise.all(uploadPromises);
+  return imageUrls;
+}
