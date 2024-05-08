@@ -1,26 +1,41 @@
-import logo from "../assets/project2.png";
-import bannerbg from "../assets/bannerbg.png";
 import { CircleUserRound, Clock, FolderRoot, Star, Tags } from "lucide-react";
 import { Tag } from "../components/Tags";
 import TaskProgressSection from "../components/TaskProgressSection";
+import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import * as apiClient from "../API/api-client";
+import { createdDate, formatDate } from "../utils";
 
 const Project = () => {
+  const { projectId } = useParams();
+  console.log(projectId);
+  const { data: project } = useQuery(
+    ["getProjectById", projectId],
+    () => apiClient.getProjectById(projectId || ""),
+    { enabled: !!projectId }
+  );
+  console.log(project);
+
   return (
     <div className="h-full overflow-y-auto">
       <div className="p-[25px] border-b-2 border-gray-5 ">
         <div className="relative  h-[198px] rounded-[14px]   p-8 overflow-hidden">
           <img
-            src={bannerbg}
+            src={project?.bannerUrl}
             alt=""
             className="absolute top-0 left-0 object-cover w-full h-full -z-10"
           />
           <div className="flex items-end justify-between h-full">
             <div className="flex  gap-[10px]">
-              <img src={logo} alt="" className="w-[45px] h-[45px]" />
+              <img
+                src={project?.logoUrl}
+                alt={project?.name}
+                className="w-[45px] h-[45px]"
+              />
               <div className="flex flex-col">
-                <span className="font-bold text-w ">Cloth</span>
+                <span className="font-bold text-w ">{project?.name}</span>
                 <span className="text-sm font-normal text-white">
-                  Small and Consices headline
+                  {project?.title}
                 </span>
               </div>
             </div>
@@ -29,13 +44,17 @@ const Project = () => {
                 <span className="text-sm font-semibold uppercase text-gray-1">
                   CREATED
                 </span>
-                <span className="text-sm ">Mar 23, 10:34 PM</span>
+                <span className="text-sm ">
+                  {project?.createdAt && createdDate(project.createdAt)}
+                </span>
               </div>
               <div className="flex flex-col">
                 <span className="text-sm font-semibold uppercase text-gray-1">
                   DEADLINE
                 </span>
-                <span className="text-sm ">Jun 02, 04:01 PM</span>
+                <span className="text-sm ">
+                  {project?.deadline && formatDate(project.deadline)}
+                </span>
               </div>
             </div>
           </div>
@@ -47,7 +66,9 @@ const Project = () => {
                 <Clock />
                 Created At
               </span>
-              <span className="text-sm text-gray-1">May, 15 2022 14:23 PM</span>
+              <span className="text-sm text-gray-1">
+                {project?.createdAt && createdDate(project.createdAt)}
+              </span>
             </div>
             <div className="flex items-center justify-between ">
               <span className="flex items-center gap-2 mr-24 text-sm text-gray-1">
@@ -55,9 +76,9 @@ const Project = () => {
                 Tags
               </span>
               <span className="flex gap-2">
-                <Tag tag="Profitable" color="pink" />
-                <Tag tag="Ai" color="green" />
-                <Tag tag="1 Person" color="violet" />
+                {project?.tags?.map((tag) => (
+                  <Tag tag={tag.name} color={tag.color} />
+                ))}
               </span>
             </div>
             <div className="flex items-center justify-between ">
@@ -88,13 +109,7 @@ const Project = () => {
           </div>
           <div className="flex-1">
             <span className="text-sm font-semibold">Description</span>
-            <p className="text-sm text-gray-2">
-              TaskFlow is an intuitive task management system designed to help
-              teams collaborate and manage their projects with ease. It offers
-              powerful features such as task tracking, project organization,
-              scheduling, and communication tools to keep teams organized and on
-              top of their projects.
-            </p>
+            <p className="text-sm text-gray-2">{project?.description}</p>
           </div>
         </div>
       </div>

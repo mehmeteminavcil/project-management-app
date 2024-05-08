@@ -47,4 +47,5 @@ export type ProjectType = {
   imageUrls: string[];
   logoUrl: string;
   bannerUrl: string;
+  createdAt: string;
 };

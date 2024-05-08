@@ -55,7 +55,9 @@ const ManageProjectForm = ({ project, onSave }: Props) => {
     formData.append("name", formDataJson.name);
     formData.append("title", formDataJson.title);
     formData.append("description", formDataJson.description);
-    formData.append("deadline", JSON.stringify(startDate));
+
+    const formattedDeadline = startDate?.toISOString() || "";
+    formData.append("deadline", formattedDeadline);
 
     formDataJson.tags.forEach((tag, index) => {
       formData.append(`tags[${index}][name]`, tag.name);
@@ -86,10 +88,10 @@ const ManageProjectForm = ({ project, onSave }: Props) => {
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={onSubmit} className="flex flex-col gap-6">
-        <div className="w-full border rounded-md border-gray-5 bg-[#f9f8ff] p-[10px] ">
-          <h2 className="my-4 font-semibold text-gray-1">Add New Note</h2>
+        <div className="w-full border rounded-md border-gray-5 bg-[#f9f8ff] p-[10px] flex flex-col gap-6 ">
+          <h2 className="my-4 font-semibold text-gray-1">Add New Project</h2>
           <label>
-            Name of Project:
+            <h2 className="font-semibold text-gray-1">Name of Project:</h2>
             <input
               type="text"
               className="w-full px-3 py-1 font-semibold border rounded-md outline-none border-gray-4"
@@ -97,22 +99,23 @@ const ManageProjectForm = ({ project, onSave }: Props) => {
             />
           </label>
           <label>
-            Title:
+            <h2 className="font-semibold text-gray-1">Title of Project:</h2>
             <input
               className="w-full px-3 py-1 font-semibold border rounded-md outline-none border-gray-4"
               {...register("title")}
             />
           </label>
           <label>
-            Description:
+            <h2 className="font-semibold text-gray-1">Description:</h2>
             <textarea
               className="w-full p-3 border rounded-md outline-none min-h-40 max-h-[300px] border-gray-4 "
               {...register("description")}
             />
           </label>
-          <div className="flex w-full gap-3 px-2 py-1 my-2 border rounded-md border-gray-4">
+          <div className="flex items-center w-full gap-3 px-2 py-1 border rounded-md border-gray-4 bg-w">
             Deadline:
             <DatePicker
+              className="py-1"
               selected={startDate}
               onChange={(date) => setStartDate(date)}
             />

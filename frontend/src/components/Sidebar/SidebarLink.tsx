@@ -33,7 +33,7 @@ const SidebarLink = ({
 
       {navOpen && (
         <span
-          className={`font-medium  text-gray-3 ${
+          className={`font-medium  text-gray-3 capitalize ${
             activeNav === text && " text-white"
           } `}
         >

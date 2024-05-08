@@ -28,7 +28,7 @@ const Sidebar = () => {
   );
 
   const [navOpen, setNavOpen] = useState(true);
-  const [activeNav, setActiveNav] = useState("Overview");
+  const [activeNav, setActiveNav] = useState("projects");
 
   return (
     <aside
@@ -50,39 +50,39 @@ const Sidebar = () => {
       {/* SIDEBAR NAVIGATION */}
       <nav className="flex flex-col px-5">
         <SidebarLink
-          text="Overview"
-          icon={<Component />}
-          navOpen={navOpen}
-          activeNav={activeNav}
-          handleClick={() => setActiveNav("Overview")}
-        />
-        <SidebarLink
-          text="Calendar"
-          icon={<CalendarDays />}
-          navOpen={navOpen}
-          activeNav={activeNav}
-          handleClick={() => setActiveNav("Calendar")}
-        />
-        <SidebarLink
-          text="Analytics"
-          icon={<PieChart />}
-          navOpen={navOpen}
-          activeNav={activeNav}
-          handleClick={() => setActiveNav("Analytics")}
-        />
-        <SidebarLink
-          text="Activity"
-          icon={<Signal />}
-          navOpen={navOpen}
-          activeNav={activeNav}
-          handleClick={() => setActiveNav("Activity")}
-        />
-        <SidebarLink
-          text="Projects"
+          text="projects"
           icon={<Folders />}
           navOpen={navOpen}
           activeNav={activeNav}
-          handleClick={() => setActiveNav("Projects")}
+          handleClick={() => setActiveNav("projects")}
+        />
+        <SidebarLink
+          text="overview"
+          icon={<Component />}
+          navOpen={navOpen}
+          activeNav={activeNav}
+          handleClick={() => setActiveNav("overview")}
+        />
+        <SidebarLink
+          text="calendar"
+          icon={<CalendarDays />}
+          navOpen={navOpen}
+          activeNav={activeNav}
+          handleClick={() => setActiveNav("calendar")}
+        />
+        <SidebarLink
+          text="analytics"
+          icon={<PieChart />}
+          navOpen={navOpen}
+          activeNav={activeNav}
+          handleClick={() => setActiveNav("analytics")}
+        />
+        <SidebarLink
+          text="activity"
+          icon={<Signal />}
+          navOpen={navOpen}
+          activeNav={activeNav}
+          handleClick={() => setActiveNav("activity")}
         />
       </nav>
 

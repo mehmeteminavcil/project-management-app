@@ -27,3 +27,35 @@ export const formatDate = (dateString: string) => {
 
   return `${month} ${day}, ${year}`;
 };
+
+export const createdDate = (inputDate: string) => {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const date = new Date(inputDate);
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+  let hours = date.getHours();
+  const minutes = ("0" + date.getMinutes()).slice(-2);
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12;
+  hours = hours ? hours : 12; // Handle midnight (0) as 12 AM
+
+  return `${month} ${day}, ${hours}:${minutes} ${ampm}`;
+};
+
+const inputDate = "2024-05-08T15:38:38.394Z";
+const formattedDate = formatDate(inputDate);
+console.log(formattedDate);

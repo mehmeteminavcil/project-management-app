@@ -271,18 +271,16 @@ export const getProjectCards = async (): Promise<ProjectType[]> => {
   return response.json();
 };
 
-/// Test
-
-export const createTest = async (testFormData: FormData) => {
-  const response = await fetch(`${API_BASE_URL}/api/tests`, {
-    method: "POST",
+export const getProjectById = async (
+  projectId: string
+): Promise<ProjectType> => {
+  console.log(projectId);
+  const response = await fetch(`${API_BASE_URL}/api/projects/${projectId}`, {
+    method: "GET",
     credentials: "include",
-
-    body: testFormData,
   });
-
   if (!response.ok) {
-    throw new Error("Failed to create Test");
+    throw new Error("Error fetching project...!");
   }
   return response.json();
 };

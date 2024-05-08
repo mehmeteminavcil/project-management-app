@@ -1,5 +1,5 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { Trash2 } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { ProjectFormData } from "../forms/ManageProjectForm";
 
@@ -34,7 +34,17 @@ const AddTagSection = () => {
 
   const colors = ["green", "pink", "yellow", "blue", "purple", "violet"];
   return (
-    <div className="flex flex-col gap-2 p-3 border rounded-md border-gray-5">
+    <div className="flex flex-col gap-2 p-3 border rounded-md border-gray-5 bg-w">
+      <div className="flex items-center gap-2">
+        <h2 className="font-semibold text-gray-1">Add Tag:</h2>
+        <button
+          type="button"
+          onClick={addField}
+          className="flex items-center justify-center w-6 h-6 p-1 border rounded-md border-gray-5"
+        >
+          <Plus />
+        </button>
+      </div>
       {fields.map((field, index) => (
         <div
           key={field.id}
@@ -80,18 +90,11 @@ const AddTagSection = () => {
             size={16}
             color="red"
             type="button"
-            className="ml-2"
+            className="ml-2 cursor-pointer"
             onClick={() => removeField(index)}
           />
         </div>
       ))}
-      <button
-        type="button"
-        onClick={addField}
-        className="w-[70px] border  rounded-md"
-      >
-        Add Tag
-      </button>
     </div>
   );
 };

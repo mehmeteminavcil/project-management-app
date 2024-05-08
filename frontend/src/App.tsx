@@ -30,6 +30,22 @@ const App = () => {
         {isLoggedIn && (
           <>
             <Route
+              path="/"
+              element={
+                <Layout>
+                  <Projects />
+                </Layout>
+              }
+            />
+            <Route
+              path="/projects"
+              element={
+                <Layout>
+                  <Projects />
+                </Layout>
+              }
+            />
+            <Route
               path="/overview"
               element={
                 <Layout>
@@ -61,14 +77,7 @@ const App = () => {
                 </Layout>
               }
             />
-            <Route
-              path="/projects"
-              element={
-                <Layout>
-                  <Projects />
-                </Layout>
-              }
-            />
+
             <Route
               path="/add-new-project"
               element={

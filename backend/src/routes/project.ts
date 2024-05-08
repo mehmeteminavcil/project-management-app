@@ -2,9 +2,19 @@ import express, { Request, Response } from "express";
 import verifyToken from "../middleware/auth";
 import Project, { ProjectType } from "../models/project";
 import cloudinary from "cloudinary";
-import { upload } from "../utils/cloudinaryUtils";
+
+import { param, validationResult } from "express-validator";
+import multer from "multer";
 
 const router = express.Router();
+
+const storage = multer.memoryStorage();
+export const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024, //5MB
+  },
+});
 
 // create new project
 router.post(
@@ -62,6 +72,32 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+// get project by id
+
+router.get(
+  "/:id",
+  verifyToken,
+  [param("id").notEmpty().withMessage("Project ID is required..!")],
+  async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const project = await Project.findById({ _id: req.params.id.toString() });
+      if (!project) {
+        res.status(404).json({ message: "Note not found...!" });
+      }
+      res.json(project);
+    } catch (error) {
+      console.error("Error fetching project..!", error);
+      res.status(500).json({ message: "Internal server error..!" });
+    }
+  }
+);
+
 export default router;
 
 async function uploadImages(imageFiles: Express.Multer.File[]) {

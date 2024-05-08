@@ -89,9 +89,9 @@ const AddTeam = () => {
   };
 
   return (
-    <div className="flex justify-between gap-10 p-3 my-4 border rounded-md border-gray-5">
+    <div className="flex justify-between gap-10 p-3 border rounded-md border-gray-5 bg-w">
       <div className="flex-1 " onMouseLeave={() => setUsers([])}>
-        <h2>Search User:</h2>
+        <h2 className="font-semibold text-gray-1">Search User:</h2>
         <input
           type="text"
           placeholder="search user to assign"
@@ -117,8 +117,8 @@ const AddTeam = () => {
       </div>
 
       <div className="flex-1">
-        <h2>
-          Assigned Users:{" "}
+        <h2 className="font-semibold text-gray-1">
+          Deadline:
           {errors.team && (
             <span className="ml-4 text-error">{errors.team.message}</span>
           )}
