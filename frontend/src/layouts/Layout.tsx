@@ -9,7 +9,7 @@ const Layout = ({ children }: Props) => {
   return (
     <div className="w-full h-[100vh] flex justify-between">
       <Sidebar />
-      <div className="flex-1 p-3">{children}</div>
+      <div className="flex-1 ">{children}</div>
       <RightMenu />
     </div>
   );

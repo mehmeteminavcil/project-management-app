@@ -72,11 +72,11 @@ const ManageProjectForm = ({ project, onSave }: Props) => {
       formData.append(`imageFiles`, imageFile);
     });
 
-    Array.from(formDataJson.logoImgFile).forEach((imageFile) => {
-      formData.append(`logoImgFile`, imageFile);
+    Array.from(formDataJson.logoImgFile).forEach((logoImageFile) => {
+      formData.append(`logoImgFile`, logoImageFile);
     });
-    Array.from(formDataJson.bannerImgFile).forEach((imageFile) => {
-      formData.append(`bannerImgFile`, imageFile);
+    Array.from(formDataJson.bannerImgFile).forEach((bannerImageFile) => {
+      formData.append(`bannerImgFile`, bannerImageFile);
     });
 
     console.log(formDataJson);

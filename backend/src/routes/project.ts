@@ -29,8 +29,8 @@ router.post(
       const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 
       const imageFiles = files["imageFiles"] || [];
-      const logoImgFiles = files["logoImgFile"] || [];
-      const bannerImgFiles = files["bannerImgFile"] || [];
+      const logoImgFile = files["logoImgFile"] || [];
+      const bannerImgFile = files["bannerImgFile"] || [];
 
       const newProject: ProjectType = req.body;
 
@@ -38,10 +38,10 @@ router.post(
       const imageUrls = await uploadImages(imageFiles);
       newProject.imageUrls = imageUrls;
 
-      const logoUrl = await uploadImages(logoImgFiles);
+      const logoUrl = await uploadImages(logoImgFile);
       newProject.logoUrl = logoUrl;
 
-      const bannerUrl = await uploadImages(bannerImgFiles);
+      const bannerUrl = await uploadImages(bannerImgFile);
       newProject.bannerUrl = bannerUrl;
 
       newProject.userId = req.userId;
@@ -61,7 +61,9 @@ router.post(
 router.get("/", verifyToken, async (req: Request, res: Response) => {
   try {
     const userId = req.userId;
-    const userProjects = await Project.find({ "team.userId": userId });
+    const userProjects = await Project.find({ "team.userId": userId }).sort({
+      createdAt: -1,
+    });
     res.json(userProjects);
   } catch (error) {
     console.error("Error fetching user projects:", error);

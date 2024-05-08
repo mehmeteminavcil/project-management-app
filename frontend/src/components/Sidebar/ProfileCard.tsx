@@ -61,7 +61,7 @@ const ProfileCard = ({ name, profileImageUrl, navOpen }: ProfileCardProps) => {
 
           {showSettings && (
             <div className="absolute border shadow-lg  flex flex-col p-3 gap-4  border-gray-5 rounded-[10px] w-full right-0 bg-w -top-[126px]">
-              <Link to="profile" className="pb-1 border-b border-gray-5">
+              <Link to="/profile" className="pb-1 border-b border-gray-5">
                 Account Settings
               </Link>
               <button

@@ -18,6 +18,8 @@ import EditNote from "./pages/EditNote";
 import AddNote from "./pages/AddNote";
 import AddProject from "./pages/AddProject";
 import TestPage from "./pages/TestPage";
+import Project from "./pages/Project";
+import AccountSettings from "./pages/AccountSettings";
 
 const App = () => {
   const { isLoggedIn } = useAppContext();
@@ -84,6 +86,14 @@ const App = () => {
               }
             />
             <Route
+              path="/profile"
+              element={
+                <Layout>
+                  <AccountSettings />
+                </Layout>
+              }
+            />
+            <Route
               path="/test"
               element={
                 <Layout>
@@ -96,6 +106,14 @@ const App = () => {
               element={
                 <Layout>
                   <EditNote />
+                </Layout>
+              }
+            />
+            <Route
+              path="/projects/:projectId"
+              element={
+                <Layout>
+                  <Project />
                 </Layout>
               }
             />
