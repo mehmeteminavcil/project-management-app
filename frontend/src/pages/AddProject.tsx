@@ -5,10 +5,10 @@ import ManageProjectForm from "../forms/ManageProjectForm";
 const AddProject = () => {
   const { mutate } = useMutation(apiClient.createProject, {
     onSuccess: () => {
-      console.log("oldukeeee");
+      console.log("SUCCESS");
     },
     onError: () => {
-      console.log("olmadiiiiiiiiiiii");
+      console.log("ERROR");
     },
   });
 

@@ -9,17 +9,23 @@ export type User = {
   lastName: string;
   email: string;
   isAdmin: boolean;
+  imageUrls: string;
 };
 
 const AddTeam = () => {
-  const { register, setValue } = useFormContext<ProjectFormData>();
+  const {
+    register,
+    setValue,
+
+    formState: { errors },
+  } = useFormContext<ProjectFormData>();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState<User[]>([]);
   const [team, setTeam] = useState<User[]>([]);
 
   useEffect(() => {
-    register("team");
+    register("team", { required: "This Field is required!" });
   }, [register]);
 
   useEffect(() => {
@@ -83,51 +89,67 @@ const AddTeam = () => {
   };
 
   return (
-    <div className="flex justify-between p-3 my-4 border rounded-md border-gray-5">
-      <div>
-        <div>
-          <h2>Search User:</h2>
-          <input
-            type="text"
-            placeholder="search user to assign"
-            className="border rounded-md border-gray-3"
-            value={searchTerm}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <ul>
+    <div className="flex justify-between gap-10 p-3 my-4 border rounded-md border-gray-5">
+      <div className="flex-1 " onMouseLeave={() => setUsers([])}>
+        <h2>Search User:</h2>
+        <input
+          type="text"
+          placeholder="search user to assign"
+          className="w-full p-2 border rounded-md outline-none border-gray-3"
+          value={searchTerm}
+          onChange={handleChange}
+        />
+        <div className="relative">
+          <ul className="absolute flex flex-col w-full rounded-md bg-w">
             {users?.map((user: User) => (
               <li
                 key={user._id}
-                className="flex gap-3"
+                className="flex gap-3 p-1 mx-2 my-1 border rounded-md cursor-pointer border-gray-5 hover:bg-green/50 "
                 onClick={() => handleUserClick(user)}
               >
-                <span>{user.firstName}</span>
-                <span>{user.lastName}</span>
+                <img src={user.imageUrls} className="rounded-full w-7 h-7" />
+                <span className="capitalize">{user.firstName}</span>
+                <span className="capitalize">{user.lastName}</span>
               </li>
             ))}
           </ul>
         </div>
       </div>
 
-      <div>
-        <h2>Assigned users:</h2>
-        <ul>
+      <div className="flex-1">
+        <h2>
+          Assigned Users:{" "}
+          {errors.team && (
+            <span className="ml-4 text-error">{errors.team.message}</span>
+          )}
+        </h2>
+        <ul className="flex flex-col gap-2 ">
           {team?.map((user: User) => (
-            <li key={user._id} className="flex gap-3">
-              <span>{user.firstName}</span>
-              <span>{user.lastName}</span>
+            <li
+              key={user._id}
+              className="flex items-center justify-between p-1 px-2 rounded-md bg-violet/10"
+            >
+              <div className="flex items-center gap-2">
+                <img src={user.imageUrls} className="w-8 h-8 rounded-full" />
+                <span className="capitalize">{user.firstName}</span>
+                <span className="capitalize">{user.lastName}</span>
+              </div>
 
-              <span>
-                is Admin:
-                <input
-                  type="checkbox"
-                  checked={user.isAdmin}
-                  onChange={() => handleCheckboxChange(user)}
+              <div className="flex items-center gap-2">
+                <label className="flex items-center">
+                  is Admin:
+                  <input
+                    type="checkbox"
+                    checked={user.isAdmin}
+                    onChange={() => handleCheckboxChange(user)}
+                  />
+                </label>
+                <Trash2
+                  onClick={() => handleUserDelete(user._id)}
+                  size={16}
+                  className="cursor-pointer text-error/80"
                 />
-              </span>
-              <Trash2 onClick={() => handleUserDelete(user._id)} />
+              </div>
             </li>
           ))}
         </ul>

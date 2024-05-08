@@ -1,18 +1,10 @@
 import express, { Request, Response } from "express";
 import verifyToken from "../middleware/auth";
 import Project, { ProjectType } from "../models/project";
-import multer from "multer";
 import cloudinary from "cloudinary";
+import { upload } from "../utils/cloudinaryUtils";
 
 const router = express.Router();
-
-const storage = multer.memoryStorage();
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 5 * 1024 * 1024, //5MB
-  },
-});
 
 // create new project
 router.post(

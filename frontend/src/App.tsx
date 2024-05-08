@@ -30,7 +30,7 @@ const App = () => {
         {isLoggedIn && (
           <>
             <Route
-              path="/"
+              path="/overview"
               element={
                 <Layout>
                   <Overview />

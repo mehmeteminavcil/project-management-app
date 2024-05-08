@@ -12,6 +12,33 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // USER  ENDPOINTS --------------------------------------------------------------//
 
+// get user information without password
+
+export const getUser = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/users/profile`, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Error fetching User Profile..!");
+  }
+  return response.json();
+};
+
+// update user
+export const updateUser = async (userData: FormData) => {
+  const response = await fetch(`${API_BASE_URL}/api/users/profile`, {
+    method: "PUT",
+    credentials: "include",
+    body: userData,
+  });
+  if (!response.ok) {
+    throw new Error("Failed to update user..!");
+  }
+  return response.json();
+};
+
 // signup  -  create new user
 export const signup = async (formData: RegisterFormData) => {
   const response = await fetch(`${API_BASE_URL}/api/users/signup`, {

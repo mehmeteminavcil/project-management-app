@@ -1,8 +1,10 @@
 import express, { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
-import User from "../models/user";
+import User, { UserType } from "../models/user";
 import jwt from "jsonwebtoken";
 import verifyToken from "../middleware/auth";
+import { upload, uploadImages } from "../utils/cloudinaryUtils";
+import { Console } from "console";
 
 const router = express.Router();
 
@@ -21,6 +23,43 @@ router.get("/profile", verifyToken, async (req: Request, res: Response) => {
     res.status(500).json({ message: "Something went wrong!" });
   }
 });
+
+// Update user
+router.put(
+  "/profile",
+  verifyToken,
+  upload.array("imageFiles", 1),
+  async (req: Request, res: Response) => {
+    try {
+      const updatedUser: UserType = req.body;
+
+      const user = await User.findOneAndUpdate(
+        {
+          _id: req.userId,
+        },
+        updatedUser,
+        { new: true }
+      );
+      console.log(req.userId);
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found..!" });
+      }
+
+      const files = req.files as Express.Multer.File[];
+      const updatedImageUrls = await uploadImages(files);
+
+      user.imageUrls = [...updatedImageUrls, ...(updatedUser.imageUrls || [])];
+
+      await user.save();
+      console.log(user);
+      res.status(201).json(user);
+    } catch (error) {
+      console.error("Error updating user:", error);
+      res.status(500).json({ message: "Something went wrong!" });
+    }
+  }
+);
 
 //create  new user
 
@@ -80,7 +119,7 @@ router.get("/search-user", async (req, res) => {
     // Use a regular expression to perform a case-insensitive search for emails
     const users = await User.find({
       email: { $regex: new RegExp(email as string, "i") },
-    }).select("_id email firstName lastName");
+    }).select("_id email firstName lastName imageUrls");
     res.json(users);
   } catch (error) {
     console.error("Error searching users:", error);

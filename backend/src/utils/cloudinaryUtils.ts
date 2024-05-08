@@ -1,6 +1,14 @@
 import multer from "multer";
 import cloudinary from "cloudinary";
 
+const storage = multer.memoryStorage();
+export const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024, //5MB
+  },
+});
+
 export async function uploadImages(imageFiles: Express.Multer.File[]) {
   const uploadPromises = imageFiles.map(async (image) => {
     const b64 = Buffer.from(image.buffer).toString("base64");
