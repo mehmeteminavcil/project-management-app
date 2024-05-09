@@ -16,6 +16,7 @@ export type AccountSettings = {
 
 const AccountSettings = () => {
   const { data: userData } = useQuery("getUser", apiClient.getUser);
+  console.log(userData);
 
   const formMethods = useForm<AccountSettings>({
     defaultValues: userData

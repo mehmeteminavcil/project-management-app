@@ -6,7 +6,7 @@ import * as apiClient from "../../API/api-client";
 
 type ProfileCardProps = {
   name: string;
-  profileImageUrl: string;
+  profileImageUrl: string | undefined;
   navOpen: boolean;
 };
 
@@ -48,7 +48,7 @@ const ProfileCard = ({ name, profileImageUrl, navOpen }: ProfileCardProps) => {
       {navOpen && (
         <>
           <div className="flex flex-col -ml-4 text-sm">
-            <span className="font-medium text-gray-2">{name}</span>
+            <span className="font-medium capitalize text-gray-2">{name}</span>
             <span className="font-normal text-gray-3">Free Account</span>
           </div>
           <button className="">

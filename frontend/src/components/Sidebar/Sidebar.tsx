@@ -20,12 +20,14 @@ import ProfileCard from "./ProfileCard";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import * as apiClient from "../../API/api-client";
-console.log("sidebar rendered");
+import { useUser } from "../../contexts/UserContext";
 const Sidebar = () => {
   const { data: projectData } = useQuery(
     "getProjectsCard",
     apiClient.getProjectCards
   );
+
+  const { user } = useUser();
 
   const [navOpen, setNavOpen] = useState(true);
   const [activeNav, setActiveNav] = useState("projects");
@@ -164,8 +166,8 @@ const Sidebar = () => {
       </button>
 
       <ProfileCard
-        name="Mehmet Emin Avcil"
-        profileImageUrl="logo.png"
+        name={`${user?.firstName} ${user?.lastName}`}
+        profileImageUrl={user?.imageUrls}
         navOpen={navOpen}
       />
     </aside>

@@ -2,6 +2,7 @@ import { Trash2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { ProjectFormData } from "../forms/ManageProjectForm";
+import { useUser } from "../contexts/UserContext";
 
 export type User = {
   _id: string;
@@ -20,9 +21,24 @@ const AddTeam = () => {
     formState: { errors },
   } = useFormContext<ProjectFormData>();
 
+  const { user } = useUser();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState<User[]>([]);
   const [team, setTeam] = useState<User[]>([]);
+
+  useEffect(() => {
+    if (user) {
+      const userWithAdmin = { ...user, isAdmin: true }; // Set isAdmin to true for the current user
+      const userExists = team.some((u) => u._id === user._id);
+      if (!userExists) {
+        setTeam((prev) => [...prev, userWithAdmin]);
+      }
+    }
+  }, [user, team]);
+
+  console.log(user);
+  console.log(team);
 
   useEffect(() => {
     register("team", { required: "This Field is required!" });
@@ -90,7 +106,7 @@ const AddTeam = () => {
 
   return (
     <div className="flex justify-between gap-10 p-3 border rounded-md border-gray-5 bg-w">
-      <div className="flex-1 " onMouseLeave={() => setUsers([])}>
+      <div className="flex-1 ">
         <h2 className="font-semibold text-gray-1">Search User:</h2>
         <input
           type="text"

@@ -20,9 +20,8 @@ const ProjectsSection = () => {
       </div>
       <div className="grid gap-[22px] grid-cols-[repeat(auto-fill,minmax(250px,1fr))]">
         {projectCardData?.map((item) => (
-          <Link to={item._id}>
+          <Link to={item._id} key={item._id}>
             <ProjectCard
-              key={item._id}
               bannerUrl={item.bannerUrl}
               title={item.name}
               projectLogo={item.logoUrl}

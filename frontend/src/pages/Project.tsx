@@ -1,14 +1,22 @@
-import { CircleUserRound, Clock, FolderRoot, Star, Tags } from "lucide-react";
+import {
+  CircleUserRound,
+  Clock,
+  Edit,
+  FolderRoot,
+  Star,
+  Tags,
+} from "lucide-react";
 import { Tag } from "../components/Tags";
 import TaskProgressSection from "../components/TaskProgressSection";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import * as apiClient from "../API/api-client";
 import { createdDate, formatDate } from "../utils";
+import { useUser } from "../contexts/UserContext";
 
 const Project = () => {
   const { projectId } = useParams();
-  console.log(projectId);
+  const { user } = useUser();
   const { data: project } = useQuery(
     ["getProjectById", projectId],
     () => apiClient.getProjectById(projectId || ""),
@@ -16,8 +24,15 @@ const Project = () => {
   );
   console.log(project);
 
+  const currentUser = project?.team.find(
+    (member) => member.email === user?.email
+  );
+
+  const isAdmin = currentUser?.isAdmin;
+
   return (
-    <div className="h-full overflow-y-auto">
+    <div className="relative h-full overflow-y-auto">
+      {isAdmin && <Edit className="absolute top-5 right-4" />}
       <div className="p-[25px] border-b-2 border-gray-5 ">
         <div className="relative  h-[198px] rounded-[14px]   p-8 overflow-hidden">
           <img
@@ -77,7 +92,7 @@ const Project = () => {
               </span>
               <span className="flex gap-2">
                 {project?.tags?.map((tag) => (
-                  <Tag tag={tag.name} color={tag.color} />
+                  <Tag key={tag._id} tag={tag.name} color={tag.color} />
                 ))}
               </span>
             </div>

@@ -55,7 +55,3 @@ export const createdDate = (inputDate: string) => {
 
   return `${month} ${day}, ${hours}:${minutes} ${ampm}`;
 };
-
-const inputDate = "2024-05-08T15:38:38.394Z";
-const formattedDate = formatDate(inputDate);
-console.log(formattedDate);

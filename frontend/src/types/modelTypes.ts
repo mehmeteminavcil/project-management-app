@@ -35,6 +35,13 @@ export type TagsTypeData = {
   color: string;
 };
 
+export type Team = {
+  _id: string;
+  userId: string;
+  email: string;
+  isAdmin: boolean;
+};
+
 export type ProjectType = {
   _id: string;
   userId: string;
@@ -42,7 +49,7 @@ export type ProjectType = {
   title: string;
   description: string;
   deadline: string;
-  team: [];
+  team: Team[];
   tags: TagsType[];
   imageUrls: string[];
   logoUrl: string;
