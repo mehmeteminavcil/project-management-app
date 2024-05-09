@@ -4,7 +4,6 @@ import User, { UserType } from "../models/user";
 import jwt from "jsonwebtoken";
 import verifyToken from "../middleware/auth";
 import { upload, uploadImages } from "../utils/cloudinaryUtils";
-import { Console } from "console";
 
 const router = express.Router();
 
